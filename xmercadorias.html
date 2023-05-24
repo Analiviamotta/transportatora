@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercadorias</title>
+    <link rel="stylesheet" href="css/xmercadorias.css">
+    <script>
+        let mercadorias = [];
+
+        function ListarTodos() {
+            let resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+            for (let i = 0; i < mercadorias.length; i++) {
+                let mercadoria = mercadorias[i];
+                let item = document.createElement("p");
+                item.textContent = `Código: ${mercadoria.codigo}, Descrição: ${mercadoria.descricao}, Data de Validade: ${mercadoria.dataValidade}, Medidas (Peso: ${mercadoria.medidas[0]}/ Altura: ${mercadoria.medidas[1]}/ Largura: ${mercadoria.medidas[2]}/ Volume: ${mercadoria.medidas[3]}), Frágil: ${mercadoria.fragil}`;
+                resultado.appendChild(item);
+            }
+        }
+
+        function ListarUm() {
+            let codigo = document.getElementById("codigo").value;
+            let resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+            let flag = 0;
+            for (let i = 0; i < mercadorias.length; i++) {
+                if (mercadorias[i].codigo === codigo) {
+                    flag = 1;
+                    resultado.textContent = `Código: ${mercadorias[i].codigo}, Descrição: ${mercadorias[i].descricao}, Data de Validade: ${mercadorias[i].dataValidade}, Medidas (Peso/Altura/Largura/Volume): ${mercadorias[i].medidas.join('/')}, Frágil: ${mercadorias[i].fragil}`;
+                    break;
+                }
+            }
+            if (flag === 0) {
+                resultado.textContent = "Objeto não encontrado";
+            }
+        }
+
+        function Incluir() {
+            let codigo = document.getElementById("codigo").value;
+            let descricao = document.getElementById("descricao").value;
+            let dataValidade = document.getElementById("dataValidade").value;
+            let peso = parseFloat(document.getElementById("peso").value);
+            let altura = parseFloat(document.getElementById("altura").value);
+            let largura = parseFloat(document.getElementById("largura").value);
+            let volume = parseFloat(document.getElementById("volume").value);
+            let fragil = document.getElementById("fragil").value;
+
+            let medidas = [peso, altura, largura, volume];
+
+            let mercadoria = {
+                codigo: codigo,
+                descricao: descricao,
+                dataValidade: dataValidade,
+                medidas: medidas,
+                fragil: fragil
+            };
+
+            let resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+
+            let flag = 0;
+
+            for (let i = 0; i < mercadorias.length; i++) {
+                if (mercadorias[i].codigo === codigo) {
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if (flag === 1) {
+                resultado.textContent = "O cadastro deste objeto não foi possível, pois as informações já foram cadastradas anteriormente";
+            } else {
+                mercadorias.push(mercadoria);
+                resultado.textContent = "Cadastro efetuado com sucesso.";
+            }
+        }
+
+        function Alterar() {
+            let codigo = document.getElementById("codigo").value;
+            let resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+            let index = -1;
+
+            for (let i = 0; i < mercadorias.length; i++) {
+                if (mercadorias[i].codigo === codigo) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index !== -1) {
+                let descricao = document.getElementById("descricao").value;
+                let dataValidade = document.getElementById("dataValidade").value;
+                let peso = parseFloat(document.getElementById("peso").value);
+                let altura = parseFloat(document.getElementById("altura").value);
+                let largura = parseFloat(document.getElementById("largura").value);
+                let volume = parseFloat(document.getElementById("volume").value);
+                let fragil = document.getElementById("fragil").checked ? "Sim" : "Não";
+
+                let medidas = [peso, altura, largura, volume];
+
+                mercadorias[index] = {
+                    codigo: codigo,
+                    descricao: descricao,
+                    dataValidade: dataValidade,
+                    medidas: medidas,
+                    fragil: fragil
+                };
+
+                resultado.textContent = "Mercadoria alterada com sucesso.";
+            } else {
+                resultado.textContent = "Mercadoria não encontrada.";
+            }
+        }
+
+        function Excluir() {
+            let codigo = document.getElementById("codigo").value;
+            let resultado = document.getElementById("resultado");
+            let index = -1;
+
+            for (let i = 0; i < mercadorias.length; i++) {
+                if (mercadorias[i].codigo === codigo) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index !== -1) {
+                mercadorias.splice(index, 1);
+                resultado.textContent = "Mercadoria excluída com sucesso.";
+            } else {
+                resultado.textContent = "Mercadoria não encontrada.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header class="cabecalho">
+        <nav class="cabecalho-menu">
+            <a class="cabecalho-item" href="xmercadorias.html">Mercadorias</a>
+            <a class="cabecalho-item" href="yveiculos.html">Veículos</a>
+            <a class="cabecalho-item" href="">Transporte</a>
+            <a class="cabecalho-item" href="">Relatórios</a>
+            <a class="cabecalho-item" href="index.html">Página Inicial</a>
+        </nav>
+    </header>
+
+    <article>
+        <form>
+            <label for="codigo">Código: </label>
+            <input type="text" name="codigo" id="codigo"><br><br>
+
+            <label for="descricao">Descrição: </label>
+            <input type="text" name="descricao" id="descricao"><br><br>
+
+            <label for="dataValidade">Data de Validade: </label>
+            <input type="date" name="dataValidade" id="dataValidade"><br><br>
+
+            <label for="peso">Peso: </label>
+            <input type="number" name="peso" id="peso" step="0.01"><br><br>
+
+            <label for="altura">Altura: </label>
+            <input type="number" id="altura" step="0.01"><br><br>
+
+            <label for="largura">Largura: </label>
+            <input type="number" id="largura" step="0.01"><br><br>
+
+            <label for="volume">Volume: </label>
+            <input type="number" id="volume" step="0.01"><br><br>
+
+            <label for="fragil">Frágil:</label>
+            <select id="fragil">
+                <option hidden></option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select><br><br>
+
+            <button type="button" onclick="Incluir()">Incluir</button>
+            <button type="button" onclick="Alterar()">Alterar</button>
+            <button type="button" onclick="Excluir()">Excluir</button>
+            <button type="button" onclick="ListarUm()">Listar Um</button>
+            <button type="button" onclick="ListarTodos()">Listar Todos</button>
+        </form>
+        <p id="resultado"></p>
+    </article>
+    
+
+    <footer class="rodape">
+        <p class="rodape-paragrafo">Trabalho PW1 feito por Ana Lívia e Estefano</p>
+
+    </footer>
+</body>
+</html>

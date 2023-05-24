@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/yveiculos.css">
+    <title>Veículos</title>
+    <script>
+        let veiculos = [];
+
+        function ListarTodos() {
+            let resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+            for (let i = 0; i < veiculos.length; i++) {
+                let veiculo = veiculos[i];
+                let item = document.createElement("p");
+                let combustiveis = veiculo.combustiveis.join("/");
+                let acessorios = veiculo.acessorios.join("/");
+                item.textContent = `Placa: ${veiculo.placa}, Cidade da Placa: ${veiculo.placa_cidade}, Estado da Placa: ${veiculo.placa_estado}, Tipo: ${veiculo.tipo}, Marca: ${veiculo.marca}, Modelo: ${veiculo.modelo}, Ano: ${veiculo.ano}, Combustíveis: ${combustiveis}, Cor: ${veiculo.cor}, Acessórios: ${acessorios}, Volume Máximo: ${veiculo.volume_maximo}`;
+                resultado.appendChild(item);
+            }
+        }
+
+        function ListarUm() {
+            let placa = document.getElementById("placa").value;
+            let resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+            let flag = 0;
+            for (let i = 0; i < veiculos.length; i++) {
+                if (veiculos[i].placa === placa) {
+                    flag = 1;
+                    resultado.textContent = `Placa: ${veiculos[i].placa}, Cidade da Placa: ${veiculos[i].placa_cidade}, Estado da Placa: ${veiculos[i].placa_estado}, Tipo: ${veiculos[i].tipo}, Marca: ${veiculos[i].marca}, Modelo: ${veiculos[i].modelo}, Ano: ${veiculos[i].ano}, Combustíveis: ${veiculos[i].combustiveis}, Cor: ${veiculos[i].cor}, Acessórios: ${veiculos[i].acessorios}, Volume Máximo: ${veiculos[i].volume_maximo}`;
+                    break;
+                }
+            }
+            if (flag === 0) {
+                resultado.textContent = "Veículo não encontrado";
+            }
+        }
+
+        function Incluir() {
+            let placa = document.getElementById("placa").value;
+            let placa_cidade = document.getElementById("placa_cidade").value;
+            let placa_estado = document.getElementById("placa_estado").value;
+            let tipo = document.getElementById("tipo").value;
+            let marca = document.getElementById("marca").value;
+            let modelo = document.getElementById("modelo").value;
+            let ano = document.getElementById("ano").value;
+            let combustiveis = document.getElementById("combustiveis").value.split(",");
+            let cor = document.getElementById("cor").value;
+            let acessorios = document.getElementById("acessorios").value.split(",");
+            let volume_maximo = document.getElementById("volume_maximo").value;
+
+            let veiculo = {
+                placa: placa,
+                placa_cidade: placa_cidade,
+                placa_estado: placa_estado,
+                tipo: tipo,
+                marca: marca,
+                modelo: modelo,
+                ano: ano,
+                combustiveis: combustiveis,
+                cor: cor,
+                acessorios: acessorios,
+                volume_maximo: volume_maximo
+            };
+
+            let resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+
+            let flag = 0;
+
+            for (let i = 0; i < veiculos.length; i++) {
+                if (veiculos[i].placa === placa) {
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if (flag === 1) {
+                resultado.textContent = "O cadastro deste veículo não foi possível, pois as informações já foram cadastradas anteriormente";
+            } else {
+                veiculos.push(veiculo);
+                resultado.textContent = "Cadastro efetuado com sucesso.";
+            }
+        }
+
+        function Alterar() {
+            let placa = document.getElementById("placa").value;
+            let resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+            let index = -1;
+
+            for (let i = 0; i < veiculos.length; i++) {
+                if (veiculos[i].placa === placa) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index !== -1) {
+                let tipo = document.getElementById("tipo").value;
+                let marca = document.getElementById("marca").value;
+                let modelo = document.getElementById("modelo").value;
+                let ano = document.getElementById("ano").value;
+                let combustiveis = document.getElementById("combustiveis").value.split(",");
+                let cor = document.getElementById("cor").value;
+                let acessorios = document.getElementById("acessorios").value.split(",");
+                let volume_maximo = document.getElementById("volume_maximo").value;
+
+                veiculos[index] = {
+                    placa: placa,
+                    placa_cidade: veiculos[index].placa_cidade,
+                    placa_estado: veiculos[index].placa_estado,
+                    tipo: tipo,
+                    marca: marca,
+                    modelo: modelo,
+                    ano: ano,
+                    combustiveis: combustiveis,
+                    cor: cor,
+                    acessorios: acessorios,
+                    volume_maximo: volume_maximo
+                };
+
+                resultado.textContent = "Veículo alterado com sucesso.";
+            } else {
+                resultado.textContent = "Veículo não encontrado.";
+            }
+        }
+
+        function Excluir() {
+            let placa = document.getElementById("placa").value;
+            let resultado = document.getElementById("resultado");
+            let index = -1;
+
+            for (let i = 0; i < veiculos.length; i++) {
+                if (veiculos[i].placa === placa) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index !== -1) {
+                veiculos.splice(index, 1);
+                resultado.textContent = "Veículo excluído com sucesso.";
+            } else {
+                resultado.textContent = "Veículo não encontrado.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header class="cabecalho">
+        <nav class="cabecalho-menu">
+            <a class="cabecalho-item" href="xmercadorias.html">Mercadorias</a>
+            <a class="cabecalho-item" href="yveiculos.html">Veículos</a>
+            <a class="cabecalho-item" href="">Transporte</a>
+            <a class="cabecalho-item" href="">Relatórios</a>
+            <a class="cabecalho-item" href="index.html">Página Inicial</a>
+        </nav>
+    </header>
+
+    <article>
+        <form>
+            <label for="placa">Placa: </label>
+            <input type="text" name="placa" id="placa" placeholder="AAA0000"><br><br>
+
+            <label for="placa_cidade">Cidade em que a placa foi registrada: </label>
+            <input type="text" name="placa_cidade" id="placa_cidade" ><br><br>
+
+            <label for="placa_estado">Estado em que a placa foi registrada: </label>
+            <input type="text" name="placa_estado" id="placa_estado"><br><br>
+
+            <label for="tipo">Tipo: </label>
+            <input type="text" name="tipo" id="tipo"><br><br>
+
+            <label for="marca">Marca: </label>
+            <input type="text" name="marca" id="marca"><br><br>
+
+            <label for="modelo">Modelo: </label>
+            <input type="text" name="modelo" id="modelo"><br><br>
+
+            <label for="ano">Ano: </label>
+            <input type="number" name="ano" id="ano" min="1900" max="2090" placeholder="2023"><br><br>
+
+            <label for="combustiveis">Combustíveis (separados por vírgula): </label>
+            <input type="text" name="combustiveis" id="combustiveis" placeholder="gasolina,alcool"><br><br>
+
+            <label for="cor">Cor: </label>
+            <input type="text" name="cor" id="cor"><br><br>
+
+            <label for="acessorios">Acessórios (separados por vírgula): </label>
+            <input type="text" name="acessorios" id="acessorios" placeholder="cooler,teto solar"><br><br>
+
+            <label for="volume_maximo">Volume Máximo: </label>
+            <input type="number" name="volume_maximo" id="volume_maximo" step="0.01"><br><br>
+
+            <button type="button" onclick="Incluir()">Incluir</button>
+            <button type="button" onclick="Alterar()">Alterar</button>
+            <button type="button" onclick="Excluir()">Excluir</button>
+            <button type="button" onclick="ListarUm()">Listar Um</button>
+            <button type="button" onclick="ListarTodos()">Listar Todos</button>
+        </form>
+        <p id="resultado"></p>
+    </article>
+    
+
+    <footer class="rodape">
+        <p class="rodape-paragrafo">Trabalho PW1 feito por Ana Lívia e Estefano</p>
+    </footer>
+</body>
+</html>

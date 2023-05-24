@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright&family=Righteous&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body{
+    font-size: 100%;
+    background-color: #514A82;
+}
+
+.cabecalho{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 24px;
+}
+.cabecalho-menu{
+    display: flex;
+    gap: 32px;
+}
+.cabecalho-item{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #BDBCC6;
+    font-weight: 400;
+    font-size: 18px;
+}
+.conteudo{
+    margin-bottom: 48px;
+    
+}
+.conteudo_principal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.conteudo_principal-escrito {
+    display:flex;
+    flex-direction: column;
+    gap: 32px;
+}
+.conteudo_principal-escrito-titulo{
+    font-family: 'Righteous', cursive;
+    font-weight: 400;
+    font-size: 64px;
+    color: #BDBCC6;
+}
+.conteudo_principal-escrito-sub{
+    font-family: 'Cormorant Upright', serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #BDBCC6;
+
+}
+.conteudo_principal-imagem{
+    height: 430px;
+}
+.conteudo_secundario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: 48px;
+}
+.conteudo_secundario-titulo{
+    border-top:0.4px solid #BDBCC6;
+    padding-top: 48px;
+    font-family: 'Righteous', cursive;
+    font-weight: 400;
+    font-size: 24px;
+    color: #BDBCC6;
+    margin-bottom: 16px;
+    
+}
+.conteudo_secúndario-parágrafo{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    color: #BDBCC6;
+
+
+}
+.rodape {
+    padding: 32px;
+    border-top: 0.1px solid #BDBCC6;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #BDBCC6;
+    text-align: center; 
+}
